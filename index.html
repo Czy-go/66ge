@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张志文 | 海洋地质与地震学博士</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        earth: {
+                            50: '#faf9f7', 100: '#f0efe9', 200: '#e6e4db',
+                            300: '#d4d0c3', 400: '#b8b2a3', 500: '#9c9488',
+                            600: '#807a70', 700: '#6b655d', 800: '#58544e',
+                            900: '#4a4642', 950: '#272522',
+                        },
+                        ocean: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd',
+                            300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9',
+                            600: '#0284c7', 700: '#0369a1', 800: '#075985',
+                            900: '#0c4a6e', 950: '#082f49',
+                        },
+                        research: {
+                            50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe',
+                            300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6',
+                            600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Noto Serif SC', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.5); }
+        }
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .float-anim { animation: float 5s ease-in-out infinite; }
+        .slide-up { animation: slide-up 0.8s ease-out forwards; }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 24px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #7c3aed, #0ea5e9, #059669);
+        }
+        
+        .research-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .research-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .paper-tag {
+            transition: all 0.2s;
+        }
+        .paper-tag:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0c4a6e 0%, #1e40af 25%, #5b21b6 50%, #7c3aed 75%, #0ea5e9 100%);
+        }
+        
+        .field-badge {
+            background: linear-gradient(135deg, rgba(124,58,237,0.1) 0%, rgba(14,165,233,0.1) 100%);
+            border: 1px solid rgba(124,58,237,0.2);
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-700 bg-earth-50 overflow-x-hidden">
+
+    <!-- 导航栏 -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 bg-transparent">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3 group cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-research-600 to-ocean-600 text-white flex items-center justify-center font-bold text-lg shadow-lg">张</div>
+                    <div class="hidden md:block">
+                        <div class="font-bold text-slate-800 text-lg leading-tight">张志文</div>
+                        <div class="text-xs text-slate-500">Zhang Zhiwen, Ph.D.</div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-1 bg-white/80 backdrop-blur-md rounded-full px-2 py-1 shadow-lg border border-slate-200/50">
+                    <a href="#about" class="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-research-600 hover:bg-research-50 transition-all">关于</a>
+                    <a href="#education" class="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-research-600 hover:bg-research-50 transition-all">教育</a>
+                    <a href="#research" class="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-research-600 hover:bg-research-50 transition-all">科研</a>
+                    <a href="#fieldwork" class="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-research-600 hover:bg-research-50 transition-all">野外工作</a>
+                    <a href="#publications" class="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-research-600 hover:bg-research-50 transition-all">论文</a>
+                    <a href="#awards" class="px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:text-research-600 hover:bg-research-50 transition-all">荣誉</a>
+                    <a href="#contact" class="ml-2 px-5 py-2 bg-gradient-to-r from-research-600 to-ocean-600 text-white rounded-full text-sm font-medium hover:shadow-lg transition-all">联系我</a>
+                </div>
+
+                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center text-slate-600 hover:text-research-600 transition">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-xl border-t border-slate-200 shadow-2xl">
+            <div class="px-6 py-4 space-y-2">
+                <a href="#about" class="block px-4 py-3 rounded-xl text-slate-600 hover:bg-research-50 hover:text-research-600 transition">关于</a>
+                <a href="#education" class="block px-4 py-3 rounded-xl text-slate-600 hover:bg-research-50 hover:text-research-600 transition">教育</a>
+                <a href="#research" class="block px-4 py-3 rounded-xl text-slate-600 hover:bg-research-50 hover:text-research-600 transition">科研</a>
+                <a href="#fieldwork" class="block px-4 py-3 rounded-xl text-slate-600 hover:bg-research-50 hover:text-research-600 transition">野外工作</a>
+                <a href="#publications" class="block px-4 py-3 rounded-xl text-slate-600 hover:bg-research-50 hover:text-research-600 transition">论文</a>
+                <a href="#awards" class="block px-4 py-3 rounded-xl text-slate-600 hover:bg-research-50 hover:text-research-600 transition">荣誉</a>
+                <a href="#contact" class="block px-4 py-3 rounded-xl bg-gradient-to-r from-research-600 to-ocean-600 text-white text-center font-medium">联系我</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient">
+        <!-- 背景装饰 -->
+        <div class="absolute inset-0 opacity-30">
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+        </div>
+        
+        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-earth-50 to-transparent"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center pt-20">
+            <div class="text-white space-y-6 slide-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm font-medium mb-4">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    博士研究生 | 国家奖学金获得者
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-serif font-bold leading-tight">
+                    张志文
+                    <span class="block text-2xl md:text-3xl font-sans font-light text-ocean-200 mt-3">Zhang Zhiwen</span>
+                </h1>
+                
+                <p class="text-lg text-blue-100 leading-relaxed max-w-lg">
+                    海洋地质与地震学研究者，专注于俯冲带动力学、活动构造与地震危险性评估。具备丰富的青藏高原野外考察和国际合作研究经验。
+                </p>
+
+                <div class="flex flex-wrap gap-3 pt-4">
+                    <span class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm text-white border border-white/30">
+                        <i class="fas fa-mountain mr-2"></i>构造地貌学
+                    </span>
+                    <span class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm text-white border border-white/30">
+                        <i class="fas fa-water mr-2"></i>俯冲带动力学
+                    </span>
+                    <span class="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm text-white border border-white/30">
+                        <i class="fas fa-robot mr-2"></i>深度学习
+                    </span>
+                </div>
+
+                <div class="flex flex-wrap gap-4 pt-6">
+                    <a href="#publications" class="group px-8 py-4 bg-white text-research-700 rounded-full font-semibold hover:bg-blue-50 transition-all shadow-xl hover:shadow-2xl flex items-center gap-2">
+                        <span>查看论文</span>
+                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#fieldwork" class="px-8 py-4 glass text-white rounded-full font-semibold hover:bg-white/20 transition-all flex items-center gap-2">
+                        <i class="fas fa-compass"></i>
+                        <span>野外经历</span>
+                    </a>
+                </div>
+
+                <!-- 核心数据 -->
+                <div class="grid grid-cols-4 gap-4 pt-8 border-t border-white/20 mt-8">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white counter" data-target="9">9</div>
+                        <div class="text-xs text-blue-200 mt-1">篇SCI论文</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white counter" data-target="180">180</div>
+                        <div class="text-xs text-blue-200 mt-1">天野外考察</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white">1</div>
+                        <div class="text-xs text-blue-200 mt-1">次国合作</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white">4200<span class="text-sm">m</span></div>
+                        <div class="text-xs text-blue-200 mt-1">最高海拔</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 头像区域 -->
+            <div class="relative flex justify-center float-anim">
+                <div class="relative w-72 h-72 md:w-80 md:h-80">
+                    <!-- 装饰圆环 -->
+                    <div class="absolute inset-0 rounded-full border-2 border-white/20 animate-pulse"></div>
+                    <div class="absolute -inset-4 rounded-full border border-research-400/30 animate-ping" style="animation-duration: 3s;"></div>
+                    
+                    <!-- 头像 -->
+                    <div class="absolute inset-0 rounded-full overflow-hidden shadow-2xl bg-gradient-to-br from-blue-400 to-research-500 ring-4 ring-white/20">
+                        <img src="https://gzb.cas.cn/whyd/202312/W020240229645687897332.jpg" alt="张志文" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
+                    </div>
+                    
+                    <!-- 浮动标签 -->
+                    <div class="absolute -right-4 top-12 bg-white text-research-700 px-4 py-2 rounded-xl shadow-xl text-sm font-bold animate-bounce" style="animation-duration: 3s;">
+                        <i class="fas fa-globe-americas mr-2 text-ocean-500"></i>帝国理工联培
+                    </div>
+                    <div class="absolute -left-4 bottom-16 glass text-white px-4 py-2 rounded-xl text-sm font-medium" style="animation: float 4s ease-in-out infinite; animation-delay: 1s;">
+                        <i class="fas fa-award mr-2 text-yellow-300"></i>国家奖学金
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 animate-bounce">
+            <i class="fas fa-chevron-down text-2xl"></i>
+        </div>
+    </header>
+
+    <!-- 快速信息栏 -->
+    <section id="about" class="relative -mt-16 z-20 max-w-7xl mx-auto px-6">
+        <div class="bg-white rounded-3xl shadow-2xl p-6 grid grid-cols-2 md:grid-cols-4 gap-4 border border-slate-100 reveal">
+            <div class="group text-center p-4 rounded-2xl hover:bg-research-50 transition-all cursor-pointer">
+                <div class="w-12 h-12 bg-research-100 rounded-2xl flex items-center justify-center mx-auto mb-3 text-research-600 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-graduation-cap text-xl"></i>
+                </div>
+                <div class="text-xs text-slate-500 mb-1">学历</div>
+                <div class="font-bold text-slate-800 text-sm">博士研究生</div>
+            </div>
+            <div class="group text-center p-4 rounded-2xl hover:bg-ocean-50 transition-all cursor-pointer">
+                <div class="w-12 h-12 bg-ocean-100 rounded-2xl flex items-center justify-center mx-auto mb-3 text-ocean-600 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-university text-xl"></i>
+                </div>
+                <div class="text-xs text-slate-500 mb-1">所属机构</div>
+                <div class="font-bold text-slate-800 text-sm">中科院南海所</div>
+            </div>
+            <div class="group text-center p-4 rounded-2xl hover:bg-green-50 transition-all cursor-pointer">
+                <div class="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-3 text-green-600 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-map-marker-alt text-xl"></i>
+                </div>
+                <div class="text-xs text-slate-500 mb-1">籍贯</div>
+                <div class="font-bold text-slate-800 text-sm">广东湛江</div>
+            </div>
+            <div class="group text-center p-4 rounded-2xl hover:bg-yellow-50 transition-all cursor-pointer">
+                <div class="w-12 h-12 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-3 text-yellow-600 group-hover:scale-110 transition-transform">
+                    <i class="fas fa-envelope text-xl"></i>
+                </div>
+                <div class="text-xs text-slate-500 mb-1">邮箱</div>
+                <div class="font-bold text-slate-800 text-xs break-all">zhangzhiwen191@mails.ucas.ac.cn</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 教育背景 -->
+    <section id="education" class="py-24 bg-earth-50">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-serif font-bold text-slate-800 mb-4">教育背景</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-research-500 to-ocean-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 mt-4">从黄海之滨到泰晤士河畔的学术之路</p>
+            </div>
+
+            <div class="relative">
+                <div class="timeline-line"></div>
+                
+                <!-- 博士 - 中科院 -->
+                <div class="relative pl-20 pb-12 reveal">
+                    <div class="absolute left-2 w-12 h-12 bg-gradient-to-br from-research-600 to-research-700 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white z-10">
+                        <i class="fas fa-crown text-sm"></i>
+                    </div>
+                    <div class="absolute left-20 top-0 bg-research-600 text-white text-xs font-bold px-3 py-1 rounded-full">在读</div>
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 hover:shadow-2xl transition-all">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-1">中国科学院大学</h3>
+                                <div class="text-research-600 font-semibold">海洋地质 · 博士研究生</div>
+                                <div class="text-sm text-slate-500 mt-1">中国科学院南海海洋研究所</div>
+                            </div>
+                            <span class="px-4 py-2 bg-research-50 text-research-700 rounded-full text-sm font-bold">2022.08 - 2026.06</span>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed mb-4">
+                            师从著名海洋地质学家，从事俯冲带构造与地震危险性研究。获国家留学基金委资助，赴英国帝国理工学院联合培养。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-slate-100 text-slate-600 rounded-full text-xs">广州/北京</span>
+                            <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-medium">国家奖学金</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 帝国理工 -->
+                <div class="relative pl-20 pb-12 reveal">
+                    <div class="absolute left-2 w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white z-10">
+                        <i class="fas fa-globe text-sm"></i>
+                    </div>
+                    <div class="absolute left-20 top-0 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">CSC联培</div>
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 hover:shadow-2xl transition-all">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-1">帝国理工学院</h3>
+                                <div class="text-purple-600 font-semibold">Imperial College London</div>
+                                <div class="text-sm text-slate-500 mt-1">海洋地球物理 · 国家公派联培博士</div>
+                            </div>
+                            <span class="px-4 py-2 bg-purple-50 text-purple-700 rounded-full text-sm font-bold">2024.03 - 2026.03</span>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed">
+                            参与Eurofleets+新西兰Hikurangi俯冲带研究项目，开展慢滑移事件与大地测量分段机理研究。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 硕士 -->
+                <div class="relative pl-20 pb-12 reveal">
+                    <div class="absolute left-2 w-12 h-12 bg-gradient-to-br from-ocean-500 to-ocean-600 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white z-10">
+                        <i class="fas fa-university text-sm"></i>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 hover:shadow-2xl transition-all">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-1">应急管理部国家自然灾害防治研究院</h3>
+                                <div class="text-ocean-600 font-semibold">地球物理学 · 硕士研究生</div>
+                                <div class="text-sm text-slate-500 mt-1">中国地震局</div>
+                            </div>
+                            <span class="px-4 py-2 bg-ocean-50 text-ocean-700 rounded-full text-sm font-bold">2019.08 - 2022</span>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed">
+                            从事活动构造与地震危险性评估研究，参与国家自然科学基金川藏铁路重大项目。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 本科 -->
+                <div class="relative pl-20 reveal">
+                    <div class="absolute left-2 w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center text-white z-10">
+                        <i class="fas fa-school text-sm"></i>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 hover:shadow-2xl transition-all">
+                        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-slate-800 mb-1">中国石油大学(华东)</h3>
+                                <div class="text-blue-600 font-semibold">勘查技术与工程 · 学士</div>
+                            </div>
+                            <span class="px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-sm font-bold">2015.08 - 2019.07</span>
+                        </div>
+                        <p class="text-slate-600 leading-relaxed">
+                            青岛，中国。扎实的地球物理勘探基础训练。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 科研经历 -->
+    <section id="research" class="py-24 bg-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-research-50 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-ocean-50 rounded-full blur-3xl opacity-50 translate-y-1/2 -translate-x-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-serif font-bold text-slate-800 mb-4">科研经历</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-research-500 to-ocean-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 mt-4">国际合作与国家重点项目的深度参与</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 新西兰项目 -->
+                <div class="research-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 field-badge reveal">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i class="fas fa-globe-americas text-2xl"></i>
+                        </div>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold">国际合作</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">Eurofleets+ 新西兰Hikurangi俯冲带研究</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        参与国际航次，研究慢滑移事件（慢地震）与大地测量分段机理。运用深度学习技术进行断层自动识别与分析。
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="paper-tag px-3 py-1 bg-purple-50 text-purple-700 rounded-lg text-xs">慢地震</span>
+                        <span class="paper-tag px-3 py-1 bg-purple-50 text-purple-700 rounded-lg text-xs">俯冲带</span>
+                        <span class="paper-tag px-3 py-1 bg-purple-50 text-purple-700 rounded-lg text-xs">深度学习</span>
+                    </div>
+                </div>
+
+                <!-- 印尼项目 -->
+                <div class="research-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 field-badge reveal">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i class="fas fa-volcano text-2xl"></i>
+                        </div>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold">构造重建</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">印度尼西亚Sunda-Banda弧陆碰撞带研究</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Banda弧构造演化重建与地震危险性评估。揭示弧陆碰撞带的构造变形机制与强震发震潜力。
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="paper-tag px-3 py-1 bg-orange-50 text-orange-700 rounded-lg text-xs">弧陆碰撞</span>
+                        <span class="paper-tag px-3 py-1 bg-orange-50 text-orange-700 rounded-lg text-xs">地震危险性</span>
+                        <span class="paper-tag px-3 py-1 bg-orange-50 text-orange-700 rounded-lg text-xs">构造演化</span>
+                    </div>
+                </div>
+
+                <!-- 东昆仑项目 -->
+                <div class="research-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 field-badge reveal">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-teal-500 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i class="fas fa-mountain text-2xl"></i>
+                        </div>
+                        <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">国家自然科学基金</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">东昆仑断裂带滑动速率与大震复发行为</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        重点支持项目（地震联合基金）。研究断裂带中段滑动速率时空变化特征，评估强震复发间隔与破裂行为。
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="paper-tag px-3 py-1 bg-green-50 text-green-700 rounded-lg text-xs">活动构造</span>
+                        <span class="paper-tag px-3 py-1 bg-green-50 text-green-700 rounded-lg text-xs">古地震</span>
+                        <span class="paper-tag px-3 py-1 bg-green-50 text-green-700 rounded-lg text-xs">滑动速率</span>
+                    </div>
+                </div>
+
+                <!-- 川藏铁路项目 -->
+                <div class="research-card bg-gradient-to-br from-slate-50 to-white p-8 rounded-3xl border border-slate-200 field-badge reveal">
+                    <div class="flex items-start justify-between mb-6">
+                        <div class="w-14 h-14 bg-gradient-to-br from-red-500 to-pink-500 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                            <i class="fas fa-train text-2xl"></i>
+                        </div>
+                        <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold">国家重大项目</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-3">川藏铁路廊道活动断层地震破裂行为研究</h3>
+                    <p class="="text-slate-600 text-sm leading-relaxed mb-4">
+                        国家自然科学基金川藏铁路重大项目课题。为国家重大基础设施地震安全性评价提供科学依据。
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="paper-tag px-3 py-1 bg-red-50 text-red-700 rounded-lg text-xs">工程地震</span>
+                        <span class="paper-tag px-3 py-1 bg-red-50 text-red-700 rounded-lg text-xs">活动断层</span>
+                        <span class="paper-tag px-3 py-1 bg-red-50 text-red-700 rounded-lg text-xs">破裂行为</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 野外工作经历 -->
+    <section id="fieldwork" class="py-24 bg-gradient-to-b from-earth-100 to-earth-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-serif font-bold text-slate-800 mb-4">野外工作经历</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-green-500 to-teal-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 mt-4">累计180+天青藏高原野外考察，4200米海拔应急响应</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- 青藏高原 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all reveal">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-teal-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center text-white/20 text-9xl">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-3xl font-bold">180<span class="text-lg">天+</span></div>
+                            <div class="text-sm opacity-90">累计野外时长</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">青藏高原科学考察</h3>
+                        <p class="text-slate-600 text-sm mb-4">2019-2022</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            在青藏高原多条大型走滑断裂系统开展野外地质填图，重点查明鲜水河断裂详细几何学与运动学特征。
+                        </p>
+                        <div class="flex items-center gap-2 text-sm text-green-600">
+                            <i class="fas fa-check-circle"></i>
+                            <span>服务川藏铁路地震评估</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 玛多地震 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all reveal">
+                    <div class="h-48 bg-gradient-to-br from-red-400 to-orange-500 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center text-white/20 text-9xl">
+                            <i class="fas fa-house-damage"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-bold">
+                            Mw 7.4
+                        </div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-3xl font-bold">4200<span class="text-lg">m</span></div>
+                            <div class="text-sm opacity-90">海拔高度</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">玛多地震应急响应</h3>
+                        <p class="text-slate-600 text-sm mb-4">2021年5月</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            地震发生后立即开展高精度无人机摄影测量与地表破裂填图，快速获取同震地表破裂分布。
+                        </p>
+                        <div class="flex items-center gap-2 text-sm text-red-600">
+                            <i class="fas fa-bolt"></i>
+                            <span>应急响应 | 无人机航测</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 南海航次 -->
+                <div class="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all reveal">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 to-ocean-600 relative overflow-hidden">
+                        <div class="absolute inset-0 flex items-center justify-center text-white/20 text-9xl">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <div class="absolute bottom-4 left-4 text-white">
+                            <div class="text-3xl font-bold">GNSS</div>
+                            <div class="text-sm opacity-90">大地测量</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2">南海科学航次</h3>
+                        <p class="text-slate-600 text-sm mb-4">2023年5-6月</p>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            在珊瑚岛礁上布设沿岸大地测量GNSS站，用于构造监测与海平面变化研究。
+                        </p>
+                        <div class="flex items-center gap-2 text-sm text-blue-600">
+                            <i class="fas fa-satellite"></i>
+                            <span>岛礁测绘 | 构造监测</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 其他经历 -->
+            <div class="mt-8 bg-white rounded-2xl p-6 shadow-lg border border-slate-100 reveal">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center text-teal-600 flex-shrink-0">
+                        <i class="fas fa-hard-hat text-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-800 mb-1">葛洲坝集团抽水蓄能项目</h4>
+                        <p class="text-slate-600 text-sm">2020年8月 - 2020年10月 | 在工区及周边地区开展基于活动断裂调查的地质稳定性评估，为大型水电工程选址提供地质依据。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 论文发表 -->
+    <section id="publications" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-serif font-bold text-slate-800 mb-4">学术成果</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-research-500 to-ocean-500 mx-auto rounded-full"></div>
+                <p class="text-slate-500 mt-4">9篇SCI论文，含Tectonics、GRL等国际期刊</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- 在准备论文 -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-yellow-400 rounded-full"></span>
+                        在审/在准备论文
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-xl reveal">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2 py-1 bg-yellow-200 text-yellow-800 rounded text-xs font-bold">In Prep</span>
+                                <span class="text-slate-400 text-sm">Geochemistry, Geophysics, Geosystems</span>
+                            </div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Characterising the subducting protolith along the Hikurangi Margin: Implications for megathrust slip behavior</h4>
+                            <p class="text-slate-600 text-sm"><strong>Zhang, Z.</strong>, Bell, R., Yang, X., et al.</p>
+                        </div>
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-xl reveal">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2 py-1 bg-yellow-200 text-yellow-800 rounded text-xs font-bold">In Prep</span>
+                                <span class="text-slate-400 text-sm">Geophysical Research Letters</span>
+                            </div>
+                            <h4 class="font-semibold text-slate-800 mb-1">Deep learning-based fault analysis along the Hikurangi subduction zone</h4>
+                            <p class="text-slate-600 text-sm"><strong>Zhang, Z.</strong>, Bell, R., Yang, X., et al.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 已发表论文 -->
+                <div>
+                    <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                        已发表论文 (Selected)
+                    </h3>
+                    <div class="space-y-4">
+                        <!-- 论文1 -->
+                        <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all reveal">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-3 py-1 bg-research-100 text-research-700 rounded-full text-xs font-bold">SCI</span>
+                                    <span class="text-slate-400 text-sm">Tectonics, 2025</span>
+                                </div>
+                                <span class="text-xs text-slate-400">Vol. 44(10)</span>
+                            </div>
+                            <h4 class="font-bold text-slate-800 mb-2 hover:text-research-600 transition-colors cursor-pointer">
+                                Normal faults and tectonic model of the Bamei-Kangding segment within the southern Xianshuihe fault zone in eastern Tibet
+                            </h4>
+                            <p class="text-slate-600 text-sm mb-3"><strong>Zhang, Z.</strong>, Ren, J., Wang, S., Yang, X., Bell, R., et al.</p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">鲜水河断裂</span>
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">正断层</span>
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">构造模型</span>
+                            </div>
+                        </div>
+
+                        <!-- 论文2 -->
+                        <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg transition-all reveal">
+                            <div class="flex items-start justify-between mb-3">
+                                <div class="flex items-center gap-2">
+                                    <span class="px-3 py-1 bg-research-100 text-research-700 rounded-full text-xs font-bold">SCI</span>
+                                    <span class="text-slate-400 text-sm">Tectonics, 2024</span>
+                                </div>
+                                <span class="text-xs text-slate-400">Vol. 43(9)</span>
+                            </div>
+                            <h4 class="font-bold text-slate-800 mb-2 hover:text-research-600 transition-colors cursor-pointer">
+                                An integrated study of age and formation of the Aru Trough, eastern Banda Arc, Indonesia: Implications for seismic hazards
+                            </h4>
+                            <p class="text-slate-600 text-sm mb-3"><strong>Zhang, Z.</strong>, Yang, X., Mooney, W.D., Bell, R., et al.</p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">Banda弧</span>
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">Aru海槽</span>
+                                <span class="px-2 py-1 bg-slate-100 text-slate-600 rounded text-xs">地震危险性</span>
+                            </div>
+                        </div>
+
+                        <!-- 中文论文 -->
+                        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 reveal">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold">中文核心</span>
+                                <span class="text-slate-400 text-sm">科技导报, 2023</span>
+                            </div>
+                            <h4 class="font-bold text-slate-800 mb-2">汤加-克马德克俯冲带的地质构造与地震火山特征</h4>
+                            <p class="text-slate-600 text-sm"><strong>张志文</strong>, 杨晓东</p>
+                        </div>
+
+                        <!-- 更多论文提示 -->
+                        <div class="text-center pt-4 reveal">
+                            <button onclick="alert('完整论文列表：\n1. Tectonics (2025)\n2. Tectonics (2024)\n3. Global and Planetary Change (2026)\n4. Journal of Ocean University of China (2023)\n5. Tectonophysics (2022)\n6. Natural Hazards Research (2021)\n7. 科技导报 (2023)\n8. 震灾防御技术 (2021)\n9. Engineering Geology (2025, 合作)')" class="px-6 py-3 border border-slate-300 rounded-full text-slate-600 hover:bg-slate-50 transition-all text-sm font-medium">
+                                <i class="fas fa-list-ul mr-2"></i>查看完整论文列表 (9篇)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业技能 -->
+    <section class="py-16 bg-gradient-to-r from-slate-900 to-research-900 text-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl font-serif font-bold mb-4">专业技能</h2>
+                <p class="text-slate-300">多学科交叉的技术体系</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="reveal">
+                    <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-globe text-2xl text-ocean-300"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-3">地球物理与构造分析</h3>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><i class="fas fa-check text-ocean-400 mr-2"></i>多道地震解释</li>
+                        <li><i class="fas fa-check text-ocean-400 mr-2"></i>多波束测深地形分析</li>
+                        <li><i class="fas fa-check text-ocean-400 mr-2"></i>地震目录分析</li>
+                        <li><i class="fas fa-check text-ocean-400 mr-2"></i>构造地貌学</li>
+                    </ul>
+                </div>
+
+                <div class="reveal">
+                    <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-code text-2xl text-research-300"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-3">科学计算与编程</h3>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><i class="fas fa-check text-research-400 mr-2"></i>Python / MATLAB</li>
+                        <li><i class="fas fa-check text-research-400 mr-2"></i>GMT / TopoToolbox</li>
+                        <li><i class="fas fa-check text-research-400 mr-2"></i>深度学习 (PyTorch)</li>
+                        <li><i class="fas fa-check text-research-400 mr-2"></i>无人机摄影测量</li>
+                    </ul>
+                </div>
+
+                <div class="reveal">
+                    <div class="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-4">
+                        <i class="fas fa-map-marked-alt text-2xl text-green-300"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-3">地理空间与野外技术</h3>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>ArcGIS / QGIS</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>LiDAR地形测量</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>GNSS数据处理</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>TCN与OSL测年</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center reveal">
+                <div class="inline-flex items-center gap-4 glass px-6 py-3 rounded-full">
+                    <span class="text-sm text-slate-300">语言能力：</span>
+                    <span class="flex items-center gap-2 text-sm">
+                        <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                        中文 (母语)
+                    </span>
+                    <span class="h-4 w-px bg-white/20"></span>
+                    <span class="flex items-center gap-2 text-sm">
+                        <span class="w-2 h-2 bg-blue-400 rounded-full"></span>
+                        英语 (流利)
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 荣誉奖项 -->
+    <section id="awards" class="py-24 bg-earth-50">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl font-serif font-bold text-slate-800 mb-4">荣誉与奖励</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden reveal">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gradient-to-r from-research-600 to-research-700 text-white">
+                            <tr>
+                                <th class="px-6 py-4 text-left font-semibold">荣誉/奖励</th>
+                                <th class="px-6 py-4 text-left font-semibold">授予机构</th>
+                                <th class="px-6 py-4 text-left font-semibold">年份</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="hover:bg-yellow-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">
+                                    <i class="fas fa-crown text-yellow-500 mr-2"></i>
+                                    博士研究生国家奖学金
+                                </td>
+                                <td class="px-6 py-4 text-slate-600">中华人民共和国教育部</td>
+                                <td class="px-6 py-4"><span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-bold">2024</span></td>
+                            </tr>
+                            <tr class="hover:bg-purple-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">
+                                    <i class="fas fa-plane text-purple-500 mr-2"></i>
+                                    公派留学奖学金 (CSC)
+                                </td>
+                                <td class="px-6 py-4 text-slate-600">国家留学基金委</td>
+                                <td class="px-6 py-4"><span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-bold">2023</span></td>
+                            </tr>
+                            <tr class="hover:bg-blue-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">
+                                    <i class="fas fa-award text-blue-500 mr-2"></i>
+                                    一等学业奖学金
+                                </td>
+                                <td class="px-6 py-4 text-slate-600">中国科学院南海海洋研究所</td>
+                                <td class="px-6 py-4"><span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">2024</span></td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">二等学业奖学金</td>
+                                <td class="px-6 py-4 text-slate-600">中国科学院南海海洋研究所</td>
+                                <td class="px-6 py-4 text-slate-500">2023</td>
+                            </tr>
+                            <tr class="hover:bg-green-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">
+                                    <i class="fas fa-star text-green-500 mr-2"></i>
+                                    三好学生
+                                </td>
+                                <td class="px-6 py-4 text-slate-600">中国科学院大学</td>
+                                <td class="px-6 py-4 text-slate-500">2023</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">研究生学业奖学金</td>
+                                <td class="px-6 py-4 text-slate-600">应急管理部 & 中国地震局</td>
+                                <td class="px-6 py-4 text-slate-500">2021-2022</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="py-24 bg-gradient-to-br from-slate-900 via-research-900 to-ocean-900 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-research-400 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-20 w-96 h-96 bg-ocean-400 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+            <h2 class="text-4xl font-serif font-bold text-white mb-6">学术合作与联系</h2>
+            <p class="text-slate-300 text-lg mb-12">欢迎就俯冲带动力学、活动构造、地震危险性评估等方向进行交流</p>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <a href="mailto:zhangzhiwen191@mails.ucas.ac.cn" class="group glass rounded-2xl p-8 hover:bg-white/20 transition-all hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <i class="fas fa-envelope text-3xl text-white"></i>
+                    </div>
+                    <div class="text-white font-semibold mb-1">电子邮箱</div>
+                    <div class="text-slate-300 text-sm break-all">zhangzhiwen191@mails.ucas.ac.cn</div>
+                </a>
+
+                <div class="glass rounded-2xl p-8">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-phone text-3xl text-white"></i>
+                    </div>
+                    <div class="text-white font-semibold mb-1">联系电话</div>
+                    <div class="text-slate-300 text-sm">188-1050-2085</div>
+                </div>
+
+                <div class="glass rounded-2xl p-8">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map-marker-alt text-3xl text-white"></i>
+                    </div>
+                    <div class="text-white font-semibold mb-1">工作地点</div>
+                    <div class="text-slate-300 text-sm">广州/北京/伦敦</div>
+                </div>
+            </div>
+
+            <div class="text-slate-400 text-sm pt-8 border-t border-white/10">
+                <p>&copy; 2026 张志文 Zhang Zhiwen. Last updated: April 2, 2026</p>
+                <p class="mt-2">海洋地质学博士 | 构造地貌与地震学研究者</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 返回顶部 -->
+    <button id="back-to-top" onclick="window.scrollTo(0,0)" class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-r from-research-600 to-ocean-600 text-white rounded-full shadow-2xl flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 z-50">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </button>
+
+    <script>
+        // 导航栏滚动效果
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+                navbar.classList.remove('bg-transparent');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+                navbar.classList.add('bg-transparent');
+            }
+
+            const backToTop = document.getElementById('back-to-top');
+            if (window.scrollY > 500) {
+                backToTop.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                backToTop.classList.add('opacity-0', 'pointer-events-none');
+            }
+        });
+
+        // 移动端菜单
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // 滚动显示动画
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // 数字动画
+                    const counters = entry.target.querySelectorAll('.counter');
+                    counters.forEach(counter => {
+                        const target = parseInt(counter.getAttribute('data-target'));
+                        let current = 0;
+                        const increment = target / 50;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                counter.textContent = target;
+                                clearInterval(timer);
+                            } else {
+                                counter.textContent = Math.floor(current);
+                            }
+                        }, 30);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
