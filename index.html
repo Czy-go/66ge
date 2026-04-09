@@ -235,11 +235,22 @@
                     <div class="absolute inset-0 rounded-full border-2 border-white/20 animate-pulse"></div>
                     <div class="absolute -inset-4 rounded-full border border-research-400/30 animate-ping" style="animation-duration: 3s;"></div>
                     
-                    <!-- 头像 -->
-                    <div class="absolute inset-0 rounded-full overflow-hidden shadow-2xl bg-gradient-to-br from-blue-400 to-research-500 ring-4 ring-white/20">
-                        <img src="https://gzb.cas.cn/whyd/202312/W020240229645687897332.jpg" alt="张志文" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700">
-                    </div>
-                    
+            
+
+   
+    
+                <!-- 头像 - 优化裁剪 -->
+<div class="absolute inset-0 rounded-full overflow-hidden shadow-2xl bg-gradient-to-br from-blue-400 to-purple-500 ring-4 ring-white/20">
+    <div class="w-full h-full bg-cover bg-center"
+         style="background-image: url('https://mmbiz.qpic.cn/sz_mmbiz_jpg/fGFpJVDteUibMIaISol6oCHOAXoLnuiaeouRIvmnSyDSImegf00Jwc5iazen2yiaLV8gQcazx9fhTAKxsiavXmd0tCQiaXe2Bj2b3gusH9sNn0RkY/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1#imgIndex=5');
+                background-size: 200% auto;
+                background-position: 0% center;
+                transition: transform 0.7s;">
+    </div>
+</div>
+
+
+
                     <!-- 浮动标签 -->
                     <div class="absolute -right-4 top-12 bg-white text-research-700 px-4 py-2 rounded-xl shadow-xl text-sm font-bold animate-bounce" style="animation-duration: 3s;">
                         <i class="fas fa-globe-americas mr-2 text-ocean-500"></i>帝国理工联培
@@ -798,9 +809,13 @@
                                 <td class="px-6 py-4"><span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">2024</span></td>
                             </tr>
                             <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="px-6 py-4 font-semibold text-slate-800">二等学业奖学金</td>
-                                <td class="px-6 py-4 text-slate-600">中国科学院南海海洋研究所</td>
-                                <td class="px-6 py-4 text-slate-500">2023</td>
+                            <tr class="hover:bg-yellow-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">
+                                    <i class="fas fa-crown text-yellow-500 mr-2"></i>
+                                    科苑杯华南赛区冠军/2次
+                                </td>
+                                <td class="px-6 py-4 text-slate-600">中国科学院大学</td>
+                                <td class="px-6 py-4"><span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-bold">2022/2023</span></td>
                             </tr>
                             <tr class="hover:bg-green-50 transition-colors">
                                 <td class="px-6 py-4 font-semibold text-slate-800">
@@ -808,12 +823,15 @@
                                     三好学生
                                 </td>
                                 <td class="px-6 py-4 text-slate-600">中国科学院大学</td>
-                                <td class="px-6 py-4 text-slate-500">2023</td>
+                                <td class="px-6 py-4"><span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-bold">2023</span></td>
                             </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="px-6 py-4 font-semibold text-slate-800">研究生学业奖学金</td>
+                            <tr class="hover:bg-blue-50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-800">
+                                    <i class="fas fa-award text-blue-500 mr-2"></i>
+                                   研究生学业奖学金
+                                </td>
                                 <td class="px-6 py-4 text-slate-600">应急管理部 & 中国地震局</td>
-                                <td class="px-6 py-4 text-slate-500">2021-2022</td>
+                                <td class="px-6 py-4"><span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-bold">2021</span></td>
                             </tr>
                         </tbody>
                     </table>
